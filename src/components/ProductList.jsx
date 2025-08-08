@@ -1,16 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
-import { addCart } from "../redux/action";
 
-const ProductList = ({ products }) => {
-  const dispatch = useDispatch();
-
-  const addProduct = (product) => {
-    dispatch(addCart(product));
-  };
-
+const ProductList = ({ products, addProduct }) => {
   return (
     <>
       {products.map((product) => (
@@ -70,4 +62,4 @@ const ProductList = ({ products }) => {
   );
 };
 
-export default ProductList;
+export default memo(ProductList);

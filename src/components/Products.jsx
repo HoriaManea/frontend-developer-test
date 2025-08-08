@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { addCart } from "../redux/action";
-
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -13,12 +12,16 @@ const Products = () => {
   const [filter, setFilter] = useState(data);
   const [loading, setLoading] = useState(false);
   let componentMounted = true;
-  console.log(data);
+
   const dispatch = useDispatch();
 
-  const addProduct = (product) => {
-    dispatch(addCart(product));
-  };
+  const addProduct = useCallback(
+    (product) => {
+      dispatch(addCart(product));
+      console.log("reder");
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     const getProducts = async () => {
@@ -106,7 +109,7 @@ const Products = () => {
             Electronics
           </button>
         </div>
-        <ProductList products={filter} />
+        <ProductList products={filter} addProduct={addProduct} />
       </>
     );
   };
